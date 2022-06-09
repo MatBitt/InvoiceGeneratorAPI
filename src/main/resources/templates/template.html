@@ -14,8 +14,8 @@
       <table class="cabecalho">
       	<tr>
       		<td class="primeiraColuna">CLIENT</td>
-      		<td th:text="${invoice}" class="segundaColuna" style="width: 45%">John Doe</td>
-      		<td class="terceiraColuna" style="width: 45%"> Company Name</td>
+      		<td th:text="${invoice.getDestinataryName}" class="segundaColuna" style="width: 45%">John Doe</td>
+      		<td th:text="${invoice.getCompanyName}" class="terceiraColuna" style="width: 45%"> Company Name</td>
       	</tr>
       	<tr>
       		<td class="primeiraColuna">ADDRESS</td>

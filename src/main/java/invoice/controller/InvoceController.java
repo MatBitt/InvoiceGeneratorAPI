@@ -8,9 +8,9 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import invoice.model.Invoice;
@@ -23,8 +23,8 @@ public class InvoceController {
    
 	
 	
-	@RequestMapping(value = "/teste", method = RequestMethod.POST, produces = "application/pdf")
-	public static ResponseEntity<InputStreamResource> teste(Model model, @RequestBody Invoice invoice) throws IOException {
+	@PostMapping("/teste")
+	public static ResponseEntity<?> teste(Model model, @RequestBody Invoice invoice) throws IOException {
 		
 		InvoiceService.generatePDF(invoice);
 		File pdfFile = new File("/Users/home/teste.pdf");
@@ -35,6 +35,7 @@ public class InvoceController {
 	            .contentLength(pdfFile.length())
 	            .contentType(MediaType.parseMediaType("application/pdf"))
 	            .body(new InputStreamResource(new FileInputStream(pdfFile)));
+//	            .body(InvoiceService.parseThymeleafTemplate(invoice));
 	}
 	
 

@@ -147,7 +147,7 @@ h1 {
   text-align: center;
 }
 
-totalSum{
+.totalSum{
 	font-size: 1.2em;
 	border-top: 1px solid #5D6975;;
 }
