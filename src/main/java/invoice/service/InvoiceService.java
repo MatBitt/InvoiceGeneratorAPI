@@ -1,49 +1,53 @@
 package invoice.service;
 
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 
 import invoice.model.Invoice;
 
-
-
 public class InvoiceService {
-	
 
-	public static void generateHTML(Invoice invoice) throws IOException{
- 
-		    BufferedWriter bw = new BufferedWriter(new FileWriter("/Users/home/Projetos/invoice/src/main/resources/templates/teste/index.html"));
-		    bw.write("<html><head><title>New Page</title></head><body><h3>Helasdfasdfasdrld!</h3></body></html>");
-		    bw.close();
-	    
-	}
-	
-	public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException{
-		
-		InvoiceService.generateHTML(invoice);
-		
-        try (OutputStream os = new FileOutputStream("/Users/home/teste.pdf")) {
-			
-			
+    private static String templatesPath = "/Users/home/Projetos/InvoiceGeneratorAPI/src/main/resources/templates/";
+
+    public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException {
+        
+
+        parseThymeleafTemplate(invoice);
+        
+        try (
+             OutputStream os = new FileOutputStream("/Users/home/teste.pdf")) {
+
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
-            builder.withUri("file:///Users/home/Projetos/invoice/src/main/resources/templates/teste/template.html");
+            builder.withUri("file://" + templatesPath +  "template.html");
             builder.toStream(os);
             builder.run();
-            
-            
-            
+
         }
-        
-        
-        
-	}
-	
-	
+
+    }
+
+    private static String parseThymeleafTemplate(Invoice invoice) {
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setSuffix(".html");
+        templateResolver.setTemplateMode(TemplateMode.HTML);
+
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+
+        Context context = new Context();
+        context.setVariable("invoice", invoice.getDestinataryName());
+
+        return templateEngine.process("templates/template", context);
+    }
+
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
   <head>
     <meta charset="utf-8"/>
     <title>Example 1</title>
@@ -14,7 +14,7 @@
       <table class="cabecalho">
       	<tr>
       		<td class="primeiraColuna">CLIENT</td>
-      		<td class="segundaColuna" style="width: 45%">John Doe</td>
+      		<td th:text="${invoice}" class="segundaColuna" style="width: 45%">John Doe</td>
       		<td class="terceiraColuna" style="width: 45%"> Company Name</td>
       	</tr>
       	<tr>
