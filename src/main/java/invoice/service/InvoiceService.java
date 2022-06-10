@@ -20,15 +20,15 @@ import invoice.model.Invoice;
 public class InvoiceService {
 
     private static String pdfPath = "/Users/home/teste.pdf";
+    private static String htmlPath = "/Users/home/teste.html";
 
     public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException {
-        
 
         String result = parseThymeleafTemplate(invoice);
         try (
              OutputStream os = new FileOutputStream(pdfPath);) {
 
-            File file = new File("/Users/home/teste.html");
+            File file = new File(htmlPath);
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
             bw.write(result);
@@ -36,7 +36,7 @@ public class InvoiceService {
 
             PdfRendererBuilder builder = new PdfRendererBuilder();
             builder.useFastMode();
-            builder.withUri("file:///Users/home/teste.html");
+            builder.withUri("file://" + htmlPath);
             builder.toStream(os);
             builder.run();
 
