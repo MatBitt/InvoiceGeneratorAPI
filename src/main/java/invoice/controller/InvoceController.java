@@ -16,28 +16,22 @@ import org.springframework.web.bind.annotation.RestController;
 import invoice.model.Invoice;
 import invoice.service.InvoiceService;
 
-
 @RestController
 @RequestMapping("/")
 public class InvoceController {
-   
-	
-	
-	@PostMapping("/teste")
-	public static ResponseEntity<?> teste(Model model, @RequestBody Invoice invoice) throws IOException {
-		
-		InvoiceService.generatePDF(invoice);
-		File pdfFile = new File("/Users/home/teste.pdf");
-		//ClassPathResource pdfFile = new ClassPathResource("generatedPDFs/teste.pdf");
 
-	    return ResponseEntity
-	            .ok()
-	            .contentLength(pdfFile.length())
-	            .contentType(MediaType.parseMediaType("application/pdf"))
-	            .body(new InputStreamResource(new FileInputStream(pdfFile)));
-//	            .body(InvoiceService.parseThymeleafTemplate(invoice));
-	}
-	
+    @PostMapping("/teste")
+    public static ResponseEntity<InputStreamResource> teste(Model model, @RequestBody Invoice invoice) throws IOException {
 
-	
+        File pdfFile = new File("/Users/home/teste.pdf");
+
+        InvoiceService.generatePDF(invoice);
+
+        return ResponseEntity
+                .ok()
+                .contentLength(pdfFile.length())
+                .contentType(MediaType.parseMediaType("application/pdf"))
+                .body(new InputStreamResource(new FileInputStream(pdfFile)));
+    }
+
 }

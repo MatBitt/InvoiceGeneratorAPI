@@ -14,18 +14,18 @@
       <table class="cabecalho">
       	<tr>
       		<td class="primeiraColuna">CLIENT</td>
-      		<td th:text="${invoice.getDestinataryName}" class="segundaColuna" style="width: 45%">John Doe</td>
+      		<td th:text="${invoice.getDestinataryName}" class="segundaColuna" style="width: 45%">Client's name</td>
       		<td th:text="${invoice.getCompanyName}" class="terceiraColuna" style="width: 45%"> Company Name</td>
       	</tr>
       	<tr>
       		<td class="primeiraColuna">ADDRESS</td>
-      		<td class="segundaColuna">796 Silver Harbour, TX 79273, US</td>
-      		<td class="terceiraColuna"> 455 Foggy Heights,</td>
+      		<td th:text="${invoice.getDestinataryAdress} + ', ' + ${invoice.getDestinataryPostal}" class="segundaColuna">Client's Adress and postal code</td>
+      		<td th:text="${invoice.getAdress}" class="terceiraColuna"> 455 Foggy Heights,</td>
       	</tr>
       	<tr>
       		<td class="primeiraColuna">DATE</td>
-      		<td class="segundaColuna">August 17, 2015</td>
-      		<td class="terceiraColuna"> AZ 85004, US</td>
+      		<td th:text="${invoice.getDate}" class="segundaColuna">Current date</td>
+      		<td th:text="${invoice.getPostal}" class="terceiraColuna"> Company postal</td>
       	</tr>
       </table>
       
@@ -34,7 +34,7 @@
       <table class="tabela">
         <thead>
           <tr>
-            <th class="service">SERVICE</th>
+            <th class="service">PRODUCT</th>
             <th class="desc">DESCRIPTION</th>
             <th>PRICE</th>
             <th>QTY</th>
@@ -42,33 +42,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <tr th:each="item : ${invoice.itens}" >
             <td class="service">Design</td>
-            <td class="desc">Creating a recognizable design solution based on the company's existing visual identity</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">26</td>
-            <td class="total">$1,040.00</td>
-          </tr>
-          <tr>
-            <td class="service">Development</td>
-            <td class="desc">Developing a Content Management System-based Website</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">80</td>
-            <td class="total">$3,200.00</td>
-          </tr>
-          <tr>
-            <td class="service">SEO</td>
-            <td class="desc">Optimize the site for search engines (SEO)</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">20</td>
-            <td class="total">$800.00</td>
-          </tr>
-          <tr>
-            <td class="service">Training</td>
-            <td class="desc">Initial training sessions for staff responsible for uploading web content</td>
-            <td class="unit">$40.00</td>
-            <td class="qty">4</td>
-            <td class="total">$160.00</td>
+            <td th:text ="${item.getDescription}" class="desc">Description of the item</td>
+            <td th:text="'$' + ${item.getPrice}" class="unit">$40.00</td>
+            <td th:text="'$' + ${item.getQuantity}" class="qty">26</td>
+            <td th:text="'$' + ${item.getAmount}" class="total">$1,040.00</td>
           </tr>
           <tr>
             <td colspan="4">SUBTOTAL</td>

@@ -19,13 +19,14 @@ import invoice.model.Invoice;
 
 public class InvoiceService {
 
-    private static String templatesPath = "/Users/home/Projetos/InvoiceGeneratorAPI/src/main/resources/templates/";
+    private static String pdfPath = "/Users/home/teste.pdf";
 
     public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException {
+        
 
         String result = parseThymeleafTemplate(invoice);
         try (
-             OutputStream os = new FileOutputStream("/Users/home/teste.pdf");) {
+             OutputStream os = new FileOutputStream(pdfPath);) {
 
             File file = new File("/Users/home/teste.html");
             BufferedWriter bw = new BufferedWriter(new FileWriter(file));
