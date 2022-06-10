@@ -23,7 +23,7 @@ class InvoiceApplicationTests {
 	
 	@BeforeEach
 	void init() {
-		invoice = new Invoice(new ArrayList<Item>(), null, null, null, null, null, null, null, null, null, null);
+		invoice = new Invoice(new ArrayList<Item>(), null, null, null, null, null, null, null, null, null);
 		item1 = new Item("a", new BigDecimal(10), 1);
 		item2 = new Item("b", new BigDecimal(20), 1);
 		item3 = new Item("c", new BigDecimal(30), 1);

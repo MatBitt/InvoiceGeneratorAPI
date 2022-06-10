@@ -58,6 +58,10 @@
             <td th:text="'$' + ${invoice.getTax}" class="total">$1,300.00</td>
           </tr>
           <tr>
+            <td colspan="4">DISCOUNT</td>
+            <td th:text="'$' + ${invoice.getDiscount}" class="total">$1,300.00</td>
+          </tr>
+          <tr>
             <td colspan="4" class="grand total">GRAND TOTAL</td>
             <td th:text="'$' + ${invoice.getTotal}" class="grand total">$6,500.00</td>
           </tr>

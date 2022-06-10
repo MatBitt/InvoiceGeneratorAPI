@@ -5,26 +5,37 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class Invoice {
 
+    @NotNull(message = "is mandatory")
     private ArrayList<Item> itens = new ArrayList<Item>();
+    @NotNull(message = "is mandatory")
     private String companyName;
+    @NotNull(message = "is mandatory")
     private String adress;
+    @NotNull(message = "is mandatory")
     private String postal;
+    @NotNull(message = "is mandatory")
     private String destinataryName;
+    @NotNull(message = "is mandatory")
     private String destinataryAdress;
+    @NotNull(message = "is mandatory")
     private String destinataryPostal;
     private String termsAndConditions;
     private int id;
     private String date;
+    @NotNull(message = "is mandatory")
     private BigDecimal discount;
+    @NotNull(message = "is mandatory")
     private BigDecimal taxRate;
     private BigDecimal tax;
 
     public Invoice(
             ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
             String destinataryAdress, String destinataryPostal, String termsAndConditions,
-            BigDecimal discount, BigDecimal taxRate, BigDecimal tax) {
+            BigDecimal discount, BigDecimal taxRate) {
 
         this.itens = itens;
         this.companyName = companyName;
@@ -36,7 +47,6 @@ public class Invoice {
         this.termsAndConditions = termsAndConditions;
         this.discount = discount;
         this.taxRate = taxRate;
-        this.tax = tax;
     }
 
     public ArrayList<Item> getItens() {
@@ -123,7 +133,7 @@ public class Invoice {
     }
 
     public BigDecimal getDiscount() {
-        return discount;
+        return discount ;
     }
 
     public void setDiscount(BigDecimal discount) {
