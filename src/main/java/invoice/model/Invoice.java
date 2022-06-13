@@ -5,11 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 
 public class Invoice {
 
     @NotNull(message = "is mandatory")
+    @Valid()
     private ArrayList<Item> itens = new ArrayList<Item>();
     @NotNull(message = "is mandatory")
     private String companyName;
@@ -27,13 +30,14 @@ public class Invoice {
     private int id;
     private String date;
     @NotNull(message = "is mandatory")
+    @DecimalMin(value = "0", message = "should be greater or equal to zero")
     private BigDecimal discount;
+    @DecimalMin(value = "0", message = "should be greater or equal to zero")
     @NotNull(message = "is mandatory")
     private BigDecimal taxRate;
     private BigDecimal tax;
 
-    public Invoice(
-            ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
+    public Invoice(ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
             String destinataryAdress, String destinataryPostal, String termsAndConditions,
             BigDecimal discount, BigDecimal taxRate) {
 
@@ -48,13 +52,13 @@ public class Invoice {
         this.discount = discount;
         this.taxRate = taxRate;
     }
+    
+    public void addItem(Item item) {
+        this.itens.add(item);
+    }
 
     public ArrayList<Item> getItens() {
         return itens;
-    }
-
-    public void addItem(Item item) {
-        this.itens.add(item);
     }
 
     public String getCompanyName() {

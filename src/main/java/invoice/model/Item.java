@@ -2,11 +2,20 @@ package invoice.model;
 
 import java.math.BigDecimal;
 
-public class Item {
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
+public class Item {
+    
+    @NotNull(message = "is mandotory")
     private String name;
     private String description;
+    @NotNull(message = "is mandotory")
+    @PositiveOrZero(message = "should be greater or equal to zero")
     private BigDecimal price;
+    @NotNull(message = "is mandotory")
+    @DecimalMin(value = "1", message = "should be greater than zero")
     private int quantity;
     private BigDecimal amount;
 
@@ -16,7 +25,7 @@ public class Item {
         this.quantity = quantity;
         this.amount = price.multiply(BigDecimal.valueOf(quantity));
     }
-
+    
     public BigDecimal getPrice() {
         return price;
     }
