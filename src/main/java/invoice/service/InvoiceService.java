@@ -23,6 +23,7 @@ public class InvoiceService {
     public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException {
 
         String result = parseThymeleafTemplate(invoice);
+        generateCss(invoice);
         try (
              OutputStream os = new FileOutputStream(Path.pdf);) {
 
@@ -54,6 +55,32 @@ public class InvoiceService {
         context.setVariable("invoice", invoice);
 
         return templateEngine.process("templates/template", context);
+    }
+    
+    public static void generateCss(Invoice invoice) throws FileNotFoundException, IOException {
+        
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setSuffix(".css");
+        templateResolver.setTemplateMode(TemplateMode.CSS);
+
+        TemplateEngine templateEngine = new TemplateEngine();
+        templateEngine.setTemplateResolver(templateResolver);
+
+        Context context = new Context();
+        context.setVariable("invoice", invoice);
+
+        String result = templateEngine.process("templates/template", context);
+        
+        try (
+                OutputStream os = new FileOutputStream(Path.css);) {
+
+               File file = new File(Path.css);
+               BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+
+               bw.write(result);
+               bw.close();
+               
+        }
     }
 
 }

@@ -15,21 +15,30 @@ public class Invoice {
     @NotNull(message = "is mandatory")
     @Valid()
     private ArrayList<Item> itens = new ArrayList<Item>();
-    @NotNull @NotEmpty(message = "is mandatory")
+    @NotNull
+    @NotEmpty(message = "is mandatory")
     private String companyName;
-    @NotNull @NotEmpty(message = "is mandatory")
+    @NotNull
+    @NotEmpty(message = "is mandatory")
     private String adress;
-    @NotNull @NotEmpty(message = "is mandatory")
+    @NotNull
+    @NotEmpty(message = "is mandatory")
     private String postal;
-    @NotNull @NotEmpty(message = "is mandatory")
+    @NotNull
+    @NotEmpty(message = "is mandatory")
     private String destinataryName;
-    @NotNull @NotEmpty(message = "is mandatory")
+    @NotNull
+    @NotEmpty(message = "is mandatory")
     private String destinataryAdress;
-    @NotNull @NotEmpty(message = "is mandatory")
+    @NotNull
+    @NotEmpty(message = "is mandatory")
     private String destinataryPostal;
     private String termsAndConditions;
     private int id;
     private String date;
+    @NotNull
+    @NotEmpty(message = "is mandatory")
+    private String dueDate;
     @NotNull(message = "is mandatory")
     @DecimalMin(value = "0", message = "should be greater or equal to zero")
     private BigDecimal discount;
@@ -38,8 +47,9 @@ public class Invoice {
     private BigDecimal taxRate;
     private BigDecimal tax;
 
-    public Invoice(ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
-            String destinataryAdress, String destinataryPostal, String termsAndConditions,
+    public Invoice(
+            ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
+            String destinataryAdress, String destinataryPostal, String termsAndConditions, String dueDate,
             BigDecimal discount, BigDecimal taxRate) {
 
         this.itens = itens;
@@ -50,10 +60,11 @@ public class Invoice {
         this.destinataryAdress = destinataryAdress;
         this.destinataryPostal = destinataryPostal;
         this.termsAndConditions = termsAndConditions;
+        this.dueDate = dueDate;
         this.discount = discount;
         this.taxRate = taxRate;
     }
-    
+
     public void addItem(Item item) {
         this.itens.add(item);
     }
@@ -137,8 +148,16 @@ public class Invoice {
         this.date = date;
     }
 
+    public String getDueDate() {
+        return this.dueDate;
+    }
+
+    public void setDueDate(String dueDate) {
+        this.dueDate = dueDate;
+    }
+
     public BigDecimal getDiscount() {
-        return discount ;
+        return discount;
     }
 
     public void setDiscount(BigDecimal discount) {

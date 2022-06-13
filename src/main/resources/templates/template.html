@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8"/>
     <title>Invoice</title>
-    <link rel="stylesheet" href="style.css" media="all" />
+    <link rel="stylesheet" href="invoice.css" media="all" />
   </head>
   <body>
     <header class="clearfix">
@@ -27,6 +27,10 @@
       		<td th:text="${invoice.getDate}" class="segundaColuna">Current date</td>
       		<td th:text="${invoice.getPostal}" class="terceiraColuna"> Company postal</td>
       	</tr>
+      	<tr>
+      		<td class="primeiraColuna">DUE DATE</td>
+			<td th:text="${invoice.getDueDate}" class="segundaColuna"> Due Date</td>
+      	</tr>      	
       </table>
       
     </header>
