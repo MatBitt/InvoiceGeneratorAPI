@@ -7,6 +7,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 public class Invoice {
@@ -14,17 +15,17 @@ public class Invoice {
     @NotNull(message = "is mandatory")
     @Valid()
     private ArrayList<Item> itens = new ArrayList<Item>();
-    @NotNull(message = "is mandatory")
+    @NotNull @NotEmpty(message = "is mandatory")
     private String companyName;
-    @NotNull(message = "is mandatory")
+    @NotNull @NotEmpty(message = "is mandatory")
     private String adress;
-    @NotNull(message = "is mandatory")
+    @NotNull @NotEmpty(message = "is mandatory")
     private String postal;
-    @NotNull(message = "is mandatory")
+    @NotNull @NotEmpty(message = "is mandatory")
     private String destinataryName;
-    @NotNull(message = "is mandatory")
+    @NotNull @NotEmpty(message = "is mandatory")
     private String destinataryAdress;
-    @NotNull(message = "is mandatory")
+    @NotNull @NotEmpty(message = "is mandatory")
     private String destinataryPostal;
     private String termsAndConditions;
     private int id;
