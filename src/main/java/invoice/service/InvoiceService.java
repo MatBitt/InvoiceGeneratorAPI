@@ -56,9 +56,9 @@ public class InvoiceService {
 
         return templateEngine.process("templates/template", context);
     }
-    
+
     public static void generateCss(Invoice invoice) throws FileNotFoundException, IOException {
-        
+
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setSuffix(".css");
         templateResolver.setTemplateMode(TemplateMode.CSS);
@@ -66,20 +66,17 @@ public class InvoiceService {
         TemplateEngine templateEngine = new TemplateEngine();
         templateEngine.setTemplateResolver(templateResolver);
 
-        Context context = new Context();
-        context.setVariable("invoice", invoice);
+        String result = templateEngine.process("templates/template", new Context());
 
-        String result = templateEngine.process("templates/template", context);
-        
         try (
-                OutputStream os = new FileOutputStream(Path.css);) {
+             OutputStream os = new FileOutputStream(Path.css);) {
 
-               File file = new File(Path.css);
-               BufferedWriter bw = new BufferedWriter(new FileWriter(file));
+            File file = new File(Path.css);
+            BufferedWriter bw = new BufferedWriter(new FileWriter(file));
 
-               bw.write(result);
-               bw.close();
-               
+            bw.write(result);
+            bw.close();
+
         }
     }
 
