@@ -2,6 +2,7 @@ package invoice.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.validation.Valid;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import invoice.exception.BadRequestExceptionHandler;
+import invoice.exception.InvoiceExceptionHandler;
 import invoice.model.Invoice;
 import invoice.service.InvoiceService;
 import invoice.utils.Path;
@@ -42,9 +43,31 @@ public class InvoceController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<BadRequestExceptionHandler> handleValidationExceptions(MethodArgumentNotValidException ex) {
+    public ResponseEntity<InvoiceExceptionHandler> handleValidationExceptions(MethodArgumentNotValidException ex) {
 
-        BadRequestExceptionHandler response = new BadRequestExceptionHandler(ex);
+        InvoiceExceptionHandler response = new InvoiceExceptionHandler(ex, HttpStatus.BAD_REQUEST);
+
+        return ResponseEntity
+                .ok()
+                .body(response);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(FileNotFoundException.class)
+    public ResponseEntity<InvoiceExceptionHandler> handleExceptionsFileNotFound(FileNotFoundException ex) {
+
+        InvoiceExceptionHandler response = new InvoiceExceptionHandler(ex, HttpStatus.INTERNAL_SERVER_ERROR);
+
+        return ResponseEntity
+                .ok()
+                .body(response);
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(IOException.class)
+    public ResponseEntity<InvoiceExceptionHandler> handleExceptionsIOException(IOException ex) {
+        
+        InvoiceExceptionHandler response = new InvoiceExceptionHandler(ex, HttpStatus.NOT_ACCEPTABLE);
 
         return ResponseEntity
                 .ok()
