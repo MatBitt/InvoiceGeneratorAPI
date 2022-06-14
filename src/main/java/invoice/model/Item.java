@@ -3,18 +3,22 @@ package invoice.model;
 import java.math.BigDecimal;
 
 import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 public class Item {
     
-    @NotNull(message = "is mandotory")
+    @NotNull(message = "is mandatory")
+    @NotEmpty(message = "is mandatory")
     private String name;
+    @NotNull(message = "is mandatory")
+    @NotEmpty(message = "is mandatory")
     private String description;
-    @NotNull(message = "is mandotory")
+    @NotNull(message = "is mandatory")
     @PositiveOrZero(message = "should be greater or equal to zero")
     private BigDecimal price;
-    @NotNull(message = "is mandotory")
+    @NotNull(message = "is mandatory")
     @DecimalMin(value = "1", message = "should be greater than zero")
     private int quantity;
     private BigDecimal amount;
@@ -23,7 +27,7 @@ public class Item {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
-        this.amount = price.multiply(BigDecimal.valueOf(quantity));
+        this.amount = price == null? BigDecimal.ZERO : price.multiply(BigDecimal.valueOf(quantity));
     }
     
     public BigDecimal getPrice() {
