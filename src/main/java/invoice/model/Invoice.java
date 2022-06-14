@@ -1,6 +1,7 @@
 package invoice.model;
 
 import java.math.BigDecimal;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -61,10 +62,16 @@ public class Invoice {
         this.destinataryAdress = destinataryAdress;
         this.destinataryPostal = destinataryPostal;
         this.termsAndConditions = termsAndConditions;
-        this.dueDate = dueDate;
+        this.dueDate = isValid(dueDate) ? dueDate : null;
         this.discount = discount;
         this.taxRate = taxRate;
         this.image = image;
+    }
+
+    public boolean isValid(String dueDate) {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        sdf.setLenient(false);
+        return sdf.parse(dueDate, new ParsePosition(0)) != null;
     }
 
     public void addItem(Item item) {
@@ -208,7 +215,7 @@ public class Invoice {
 
     public void setImage(String image) {
         this.image = image;
-        
+
     }
 
 }
