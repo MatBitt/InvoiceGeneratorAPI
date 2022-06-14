@@ -46,11 +46,12 @@ public class Invoice {
     @NotNull(message = "is mandatory")
     private BigDecimal taxRate;
     private BigDecimal tax;
+    private String image;
 
     public Invoice(
             ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
             String destinataryAdress, String destinataryPostal, String termsAndConditions, String dueDate,
-            BigDecimal discount, BigDecimal taxRate) {
+            BigDecimal discount, BigDecimal taxRate, String image) {
 
         this.itens = itens;
         this.companyName = companyName;
@@ -63,6 +64,7 @@ public class Invoice {
         this.dueDate = dueDate;
         this.discount = discount;
         this.taxRate = taxRate;
+        this.image = image;
     }
 
     public void addItem(Item item) {
@@ -198,6 +200,15 @@ public class Invoice {
             return total;
         }
         return BigDecimal.ZERO;
+    }
+
+    public String getImage() {
+        return this.image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+        
     }
 
 }
