@@ -29,16 +29,21 @@ import invoice.utils.Path;
 public class InvoceController {
 
     @PostMapping()
-    public static ResponseEntity<?> POSTEndpoint(@Valid @RequestBody Invoice invoice) throws IOException {
+    public static ResponseEntity<InputStreamResource> POSTEndpoint(@Valid @RequestBody Invoice invoice) throws IOException {
 
         File pdfFile = new File(Path.pdf);
 
         InvoiceService.generatePDF(invoice);
-        return ResponseEntity
+
+        ResponseEntity<InputStreamResource> response = ResponseEntity
                 .ok()
                 .contentLength(pdfFile.length())
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(new InputStreamResource(new FileInputStream(pdfFile)));
+
+        InvoiceService.deleteCopiedFiles();
+
+        return response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -66,7 +71,7 @@ public class InvoceController {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(IOException.class)
     public ResponseEntity<InvoiceExceptionHandler> handleExceptionsIOException(IOException ex) {
-        
+
         InvoiceExceptionHandler response = new InvoiceExceptionHandler(ex, HttpStatus.NOT_ACCEPTABLE);
 
         return ResponseEntity

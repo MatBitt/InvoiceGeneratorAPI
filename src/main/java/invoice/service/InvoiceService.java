@@ -7,6 +7,8 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -20,11 +22,11 @@ import invoice.utils.Path;
 
 public class InvoiceService {
 
-    public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException{
+    public static void generatePDF(Invoice invoice) throws FileNotFoundException, IOException {
 
         String result = parseThymeleafTemplate(invoice);
         generateCss();
-        
+
         try (
              OutputStream os = new FileOutputStream(Path.pdf);) {
 
@@ -40,7 +42,7 @@ public class InvoiceService {
             builder.toStream(os);
             builder.run();
 
-        } 
+        }
 
     }
 
@@ -58,7 +60,7 @@ public class InvoiceService {
         return templateEngine.process("templates/template", context);
     }
 
-    public static void generateCss() throws FileNotFoundException, IOException{
+    public static void generateCss() throws FileNotFoundException, IOException {
 
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setSuffix(".css");
@@ -78,6 +80,14 @@ public class InvoiceService {
             bw.write(result);
             bw.close();
 
-        } 
+        }
+    }
+
+    public static void deleteCopiedFiles() throws IOException {
+
+        Files.deleteIfExists(Paths.get(Path.css));
+        Files.deleteIfExists(Paths.get(Path.html));
+        Files.deleteIfExists(Paths.get(Path.pdf));
+
     }
 }

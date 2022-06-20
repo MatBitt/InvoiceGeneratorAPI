@@ -30,8 +30,8 @@ public class InvoiceExceptionHandler {
             });
         } else if (stts.equals("500 INTERNAL_SERVER_ERROR")) {
             errors.put("FILE ERROR", "FILE NOT FOUND IN THE SERVER, CHECK THE PATH FROM YOUR .PDF FILE.");
-        } else if (stts.equals("406 NOT_ACCEPTABLE")){
-            errors.put("GENERAL FILE ERROR", "CHECK THE PATH FROM YOUR .PDF FILE");
+        } else if (stts.equals("406 NOT_ACCEPTABLE")) {
+            errors.put("GENERAL FILE ERROR", "ERROR PARSING THE JSON FILE. CHECK THE REQUEST FORMAT");
         }
 
         return errors;

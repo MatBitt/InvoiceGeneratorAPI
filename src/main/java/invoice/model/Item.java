@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 public class Item {
-    
+
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String name;
@@ -27,9 +27,9 @@ public class Item {
         this.description = description;
         this.price = price;
         this.quantity = quantity;
-        this.amount = price == null? BigDecimal.ZERO : price.multiply(BigDecimal.valueOf(quantity));
+        this.amount = price == null ? BigDecimal.ZERO : price.multiply(BigDecimal.valueOf(quantity));
     }
-    
+
     public BigDecimal getPrice() {
         return price;
     }
