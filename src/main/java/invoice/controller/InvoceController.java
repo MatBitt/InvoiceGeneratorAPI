@@ -32,25 +32,25 @@ import invoice.utils.Path;
 public class InvoceController {
 
     @PostMapping()
-    public static ResponseEntity<InputStreamResource> POSTEndpoint(@Valid @RequestBody Invoice invoice, HttpServletResponse httpResponse) throws IOException {
+    public static void POSTEndpoint(@Valid @RequestBody Invoice invoice, HttpServletResponse httpResponse) throws IOException {
 
         File pdfFile = new File(Path.pdf);
 
         InvoiceService.generatePDF(invoice);
 
-        ResponseEntity<InputStreamResource> response = ResponseEntity
-                .ok()
-                .contentLength(pdfFile.length())
-                .contentType(MediaType.parseMediaType("application/pdf"))
-                .body(new InputStreamResource(new FileInputStream(pdfFile)));
+//        ResponseEntity<InputStreamResource> response = ResponseEntity
+//                .ok()
+//                .contentLength(pdfFile.length())
+//                .contentType(MediaType.parseMediaType("application/pdf"))
+//                .body(new InputStreamResource(new FileInputStream(pdfFile)));
 
-        File downloadFile = new File(Path.user);
+//        File downloadFile = new File(Path.user);
 
-        Files.copy(pdfFile , downloadFile);
+//        Files.copy(pdfFile , downloadFile);
         
         InvoiceService.deleteCopiedFiles();
-
-        return response;
+        return ;
+//        return response;
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
