@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.google.common.io.Files;
+
 import invoice.exception.InvoiceExceptionHandler;
 import invoice.model.Invoice;
 import invoice.service.InvoiceService;
@@ -43,7 +45,7 @@ public class InvoceController {
 
         File downloadFile = new File(Path.user);
 
-        com.google.common.io.Files.copy(pdfFile, downloadFile);
+        Files.copy(pdfFile, downloadFile);
 
         InvoiceService.deleteCopiedFiles();
 
