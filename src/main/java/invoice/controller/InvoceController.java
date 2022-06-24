@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.core.io.InputStreamResource;
@@ -31,7 +32,7 @@ import invoice.utils.Path;
 public class InvoceController {
 
     @PostMapping()
-    public static ResponseEntity<InputStreamResource> POSTEndpoint(@Valid @RequestBody Invoice invoice) throws IOException {
+    public static ResponseEntity<InputStreamResource> POSTEndpoint(@Valid @RequestBody Invoice invoice, HttpServletResponse httpResponse) throws IOException {
 
         File pdfFile = new File(Path.pdf);
 
@@ -45,8 +46,8 @@ public class InvoceController {
 
         File downloadFile = new File(Path.user);
 
-        Files.copy(pdfFile, downloadFile);
-
+        Files.copy(downloadFile, httpResponse.getOutputStream());
+        
         InvoiceService.deleteCopiedFiles();
 
         return response;
