@@ -41,6 +41,10 @@ public class InvoceController {
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(new InputStreamResource(new FileInputStream(pdfFile)));
 
+        File downloadFile = new File(Path.user);
+
+        com.google.common.io.Files.copy(pdfFile, downloadFile);
+
         InvoiceService.deleteCopiedFiles();
 
         return response;

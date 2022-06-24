@@ -35,7 +35,7 @@ public class Invoice {
     @NotEmpty(message = "is mandatory")
     private String destinataryPostal;
     private String termsAndConditions;
-    private int id;
+    private int id = 1;
     private String date;
     @NotNull(message = "is either null or in wrong format (MM/dd/yy)")
     @NotEmpty(message = "is mandatory")

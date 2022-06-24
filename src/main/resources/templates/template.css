@@ -49,11 +49,6 @@ h1 {
     background: url(dimension.png);
 }
 
-#gambiarra {
-    display: flex;
-    margin-bottom: 5px;
-}
-
 #project {
     text-align: left;
 }
@@ -76,13 +71,13 @@ h1 {
     white-space: nowrap;
 }
 
-.cabecalho {
+.tableHeader {
     width: 100%;
     margin-bottom: 30px;
     margin-top: 10px;
 }
 
-.primeiraColuna {
+.firstColumn {
     color: #5D6975;
     text-align: right;
     width: 52px;
@@ -92,7 +87,7 @@ h1 {
     padding-top: 1px;
 }
 
-.terceiraColuna {
+.thirdColumn {
     text-align: right;
 }
 
