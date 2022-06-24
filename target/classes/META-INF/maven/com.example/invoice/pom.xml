@@ -13,7 +13,7 @@
 	<name>invoice</name>
 	<description>BRISA&apos;s invoice API</description>
 	<properties>
-		<java.version>14</java.version>
+		<java.version>1.8</java.version>
 		<openhtml.version>1.0.10</openhtml.version>
 	</properties>
 	<dependencies>
