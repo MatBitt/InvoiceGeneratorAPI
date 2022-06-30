@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -44,11 +45,17 @@ public class InvoceController {
                 .contentType(MediaType.parseMediaType("application/pdf"))
                 .body(new InputStreamResource(new FileInputStream(pdfFile)));
 
-        File downloadFile = new File(Path.user);
-
-        Files.copy(downloadFile, httpResponse.getOutputStream());
+//        File downloadFile = new File(Path.user);
+//        
+//        Files.copy(pdfFile, downloadFile);
         
+        System.out.println(response.getBody() );
+     
+
         InvoiceService.deleteCopiedFiles();
+        
+        System.out.println(response);
+
 
         return response;
     }

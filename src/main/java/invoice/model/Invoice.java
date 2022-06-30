@@ -16,36 +16,47 @@ public class Invoice {
     @NotNull(message = "is mandatory")
     @Valid()
     private ArrayList<Item> itens = new ArrayList<Item>();
+    
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String companyName;
+    
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String adress;
+    
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String postal;
+    
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String destinataryName;
+    
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String destinataryAdress;
+    
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
     private String destinataryPostal;
+    
     private String termsAndConditions;
     private int id = 1;
     private String date;
+    
     @NotNull(message = "is either null or in wrong format (MM/dd/yy)")
     @NotEmpty(message = "is mandatory")
     private String dueDate;
+    
     @NotNull(message = "is mandatory")
     @DecimalMin(value = "0", message = "should be greater or equal to zero")
     private BigDecimal discount;
+    
     @DecimalMin(value = "0", message = "should be greater or equal to zero")
     @NotNull(message = "is mandatory")
     private BigDecimal taxRate;
+    
     private BigDecimal tax;
     private String image;
 
