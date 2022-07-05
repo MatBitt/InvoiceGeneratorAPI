@@ -23,7 +23,7 @@ public class Invoice {
     
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
-    private String adress;
+    private String address;
     
     @NotNull(message = "is mandatory")
     @NotEmpty(message = "is mandatory")
@@ -61,13 +61,13 @@ public class Invoice {
     private String image;
 
     public Invoice(
-            ArrayList<Item> itens, String companyName, String adress, String postal, String destinataryName,
+            ArrayList<Item> itens, String companyName, String address, String postal, String destinataryName,
             String destinataryAdress, String destinataryPostal, String termsAndConditions, String dueDate,
             BigDecimal discount, BigDecimal taxRate, String image) {
 
         this.itens = itens;
         this.companyName = companyName;
-        this.adress = adress;
+        this.address = address;
         this.postal = postal;
         this.destinataryName = destinataryName;
         this.destinataryAdress = destinataryAdress;
@@ -101,12 +101,12 @@ public class Invoice {
         this.companyName = companyName;
     }
 
-    public String getAdress() {
-        return adress;
+    public String getAddress() {
+        return address;
     }
 
-    public void setAdress(String adress) {
-        this.adress = adress;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPostal() {

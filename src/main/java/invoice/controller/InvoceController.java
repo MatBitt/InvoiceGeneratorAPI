@@ -1,15 +1,11 @@
 package invoice.controller;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URL;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,45 +17,28 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.google.common.io.Files;
-
 import invoice.exception.InvoiceExceptionHandler;
 import invoice.model.Invoice;
 import invoice.service.InvoiceService;
-import invoice.utils.Path;
 
 @RestController
 @RequestMapping("/")
 public class InvoceController {
 
     @PostMapping()
-    public static ResponseEntity<InputStreamResource> POSTEndpoint(@Valid @RequestBody Invoice invoice, HttpServletResponse httpResponse) throws IOException {
+    public static ResponseEntity<byte[]> getInvoice(@Valid @RequestBody Invoice invoice, HttpServletResponse resp) throws IOException {
 
-        File pdfFile = new File(Path.pdf);
+        byte[] pdfFile = InvoiceService.generatePDF(invoice);
 
-        InvoiceService.generatePDF(invoice);
+        resp.setHeader("Content-disposition", "inline; filename=invoice.pdf");
 
-        ResponseEntity<InputStreamResource> response = ResponseEntity
+        return ResponseEntity
                 .ok()
-                .contentLength(pdfFile.length())
+                .contentLength(pdfFile.length)
                 .contentType(MediaType.parseMediaType("application/pdf"))
-                .body(new InputStreamResource(new FileInputStream(pdfFile)));
-
-//        File downloadFile = new File(Path.user);
-//        
-//        Files.copy(pdfFile, downloadFile);
-        
-        System.out.println(response.getBody() );
-     
-
-        InvoiceService.deleteCopiedFiles();
-        
-        System.out.println(response);
-
-
-        return response;
+                .body(pdfFile);
     }
-
+    
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<InvoiceExceptionHandler> handleValidationExceptions(MethodArgumentNotValidException ex) {
